@@ -9,8 +9,15 @@ const movieList = data.customMap(({ id, title, year, rating }) => ({
   rating
 }));
 
-function leastRatingList(rate) {
-  return movieList.customFilter(({ rating }) => rating >= rate);
+function leastRatingList(list, rate) {
+  return list.customFilter(({ rating }) => rating >= rate);
 }
 
-console.log(leastRatingList(5));
+function genreList(list) {
+  return [
+    ...new Set(list.reduce((genres, movie) => [...genres, ...movie.genres], []))
+  ];
+}
+
+// console.log(leastRatingList(movieList, 5));
+console.log(genreList(data));
