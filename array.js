@@ -26,8 +26,24 @@ function customEvery(callbackfn, thisArg) {
   return result;
 }
 
+function customSome(callbackfn, thisArg) {
+  const array = this;
+  const length = array.length;
+  if (thisArg) {
+    callbackfn = callbackfn.bind(thisArg);
+  }
+  let result = false;
+  for (let index = 0; index < length; index++) {
+    const currentValue = array[index];
+    result = result || callbackfn(currentValue, index, array);
+  }
+  return result;
+}
+
 Array.prototype.customFilter = customFilter;
 Array.prototype.customEvery = customEvery;
+Array.prototype.customSome = customSome;
 
 console.log([1, 2, 3, 4, 5].customFilter(v => v > 2));
 console.log([1, 2, 3, 4, 5].customEvery(v => v > 0));
+console.log([1, 2, 3, 4, 5].customSome(v => v == 1));
