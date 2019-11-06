@@ -66,14 +66,28 @@ function customMap(callbackfn, thisArg) {
   return result;
 }
 
+function customReduce(callbackfn, initialValue) {
+  const array = this;
+  const length = array.length;
+  const initialIndex = initialValue ? 0 : 1;
+  let accumulator = initialValue ? initialValue : array[0];
+  for (let currentIndex = initialIndex; currentIndex < length; currentIndex++) {
+    const currentValue = array[currentIndex];
+    accumulator = callbackfn(accumulator, currentValue, currentIndex, array);
+  }
+  return accumulator;
+}
+
 Array.prototype.customFilter = customFilter;
 Array.prototype.customEvery = customEvery;
 Array.prototype.customSome = customSome;
 Array.prototype.customForEach = customForEach;
 Array.prototype.customMap = customMap;
+Array.prototype.customReduce = customReduce;
 
 console.log([1, 2, 3, 4, 5].customFilter(v => v > 2));
 console.log([1, 2, 3, 4, 5].customEvery(v => v > 0));
 console.log([1, 2, 3, 4, 5].customSome(v => v == 1));
 [1, 2, 3, 4, 5].customForEach(v => console.log(v));
 console.log([1, 2, 3, 4, 5].customMap(v => v * v));
+console.log([1, 2, 3, 4, 5].customReduce((acc, cur) => acc + cur));
