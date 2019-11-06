@@ -78,16 +78,35 @@ function customReduce(callbackfn, initialValue) {
   return accumulator;
 }
 
-Array.prototype.customFilter = customFilter;
-Array.prototype.customEvery = customEvery;
-Array.prototype.customSome = customSome;
-Array.prototype.customForEach = customForEach;
-Array.prototype.customMap = customMap;
-Array.prototype.customReduce = customReduce;
+function linkArray(functions) {
+  for (func of Object.keys(functions)) {
+    Array.prototype[func] = functions[func];
+  }
+}
+module.exports = {
+  linkArray,
+  funcs: {
+    customFilter,
+    customEvery,
+    customSome,
+    customForEach,
+    customMap,
+    customReduce
+  }
+};
 
-console.log([1, 2, 3, 4, 5].customFilter(v => v > 2));
-console.log([1, 2, 3, 4, 5].customEvery(v => v > 0));
-console.log([1, 2, 3, 4, 5].customSome(v => v == 1));
-[1, 2, 3, 4, 5].customForEach(v => console.log(v));
-console.log([1, 2, 3, 4, 5].customMap(v => v * v));
-console.log([1, 2, 3, 4, 5].customReduce((acc, cur) => acc + cur));
+linkArray({
+  customFilter,
+  customEvery,
+  customSome,
+  customForEach,
+  customMap,
+  customReduce
+});
+
+// console.log([1, 2, 3, 4, 5].customFilter(v => v > 2));
+// console.log([1, 2, 3, 4, 5].customEvery(v => v > 0));
+// console.log([1, 2, 3, 4, 5].customSome(v => v == 1));
+// [1, 2, 3, 4, 5].customForEach(v => console.log(v));
+// console.log([1, 2, 3, 4, 5].customMap(v => v * v));
+// console.log([1, 2, 3, 4, 5].customReduce((acc, cur) => acc + cur));
