@@ -1,5 +1,4 @@
 /// 1. filter
-
 // original
 // var filtered = [12, 5, 8, 130, 44].filter(value => value>=10);  
 
@@ -18,15 +17,14 @@ console.log(filtered);
 
 
 
-/// 2. every
 
-//original
+/// 2. every
+// original
 var ages = [32, 33, 16, 40];
 // console.log(ages.every(age => age>=13));
 
-//custom
+// custom
 Array.prototype.customEvery = function(func) {
-    var result = []; 
     var cnt = 0;
     var len = this.length;
     for (i = 0; i<len; i++){
@@ -37,4 +35,17 @@ Array.prototype.customEvery = function(func) {
 console.log(ages.customEvery( age => age>=13 ));
 
 
+
 /// 3. some
+// original
+var ages = [32, 33, 16, 40];
+// console.log(ages.some( age => age>=18 ));
+
+//custom
+Array.prototype.customSome = function(func) {
+    var cnt = 0; 
+    var len = this.length;
+    for( i = 0 ; i<len; i++) if(func(this[i]) == true) cnt++;
+    return ( cnt!=0 ? true : false);
+}
+console.log(ages.customSome( age => age>=35)); 
