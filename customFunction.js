@@ -49,3 +49,21 @@ Array.prototype.customSome = function(func) {
     return ( cnt!=0 ? true : false);
 }
 console.log(ages.customSome( age => age>=35)); 
+
+
+
+/// 4. forEach
+//original
+var testArray = ["aaa", "bbb", "ccc", "ddd"];
+function plusEDIT(element, index, array) {
+    array[index] = element + "EDIT";
+}
+// testArray.forEach(plusEDIT);
+
+//custom
+Array.prototype.customForEach = function(func) {
+    for( i = 0; i<this.length ; i++) func(this[i], i, this);
+}
+
+testArray.customForEach(plusEDIT);
+console.log(testArray);
