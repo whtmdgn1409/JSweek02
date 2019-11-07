@@ -1,16 +1,18 @@
-function assert(expect, answer) {
-  if (typeof expect === "object") {
-    if (Array.isArray(expect) && Array.isArray(answer)) {
-      if (expect.length === answer.length) {
-        if (answer.every((ans, index) => ans == expect[index])) {
-          console.log("\033[32m통과\033[0m");
-        }
-      }
+function assert(exception) {
+  if (!exception) throw "\033[31m실패\033[0m";
+  return "\033[32m통과\033[0m";
+}
+function expect(value, answer) {
+  if (typeof value === "object") {
+    if (Array.isArray(value) && Array.isArray(answer)) {
+      assert(value.length === answer.length);
+      answer.forEach((ans, index) => expect(value[index], ans));
+    } else if (value instanceof Object && answer instanceof Object) {
+      assert(Object.keys(value).length === Object.keys(answer).length);
+      Object.keys(answer).forEach(key => expect(value[key], answer[key]));
     }
-  } else if (expect === answer) {
-    console.log("\033[32m통과\033[0m");
   } else {
-    console.log("\033[31m실패\033[0m");
+    assert(value === answer);
   }
 }
 
@@ -43,6 +45,12 @@ b.d = 4;
 console.log(a);
 console.log(b);
 const c = [1, 2, { a: 3, b: [1, 2, { d: 3 }] }, [1, 2, 3], 5];
+
+try {
+  expect(c, [1, 2, { a: 3, b: [1, 2, { d: 3 }] }, [1, 2, 3], 5]);
+} catch (error) {
+  console.log(error);
+}
 const d = deepCopy(c);
 d.push(6);
 d[2].c = 5;
