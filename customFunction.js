@@ -67,3 +67,19 @@ Array.prototype.customForEach = function(func) {
 
 testArray.customForEach(plusEDIT);
 console.log(testArray);
+
+
+
+/// 5. map
+// original
+var array = [1, 4, 9, 16];
+// const map = array.map(x => x * 2);
+
+// custom
+Array.prototype.customMap = function(func) {
+    var result = [];
+    for( i=0 ; i<this.length; i++) result[i] = func(this[i]);
+    return result;
+}
+const map = array.customMap( x => x*2 );
+console.log(map)
