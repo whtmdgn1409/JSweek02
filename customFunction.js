@@ -14,3 +14,4 @@ Array.prototype.customFilter = function(v) {
 
 var filtered = [12, 5, 8, 130, 45];
 filtered.customFilter(13);
+console.log(filtered);
