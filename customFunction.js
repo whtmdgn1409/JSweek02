@@ -83,3 +83,13 @@ Array.prototype.customMap = function(func) {
 }
 const map = array.customMap( x => x*2 );
 console.log(map)
+
+
+/// 6. reduce
+
+
+
+
+
+
+
