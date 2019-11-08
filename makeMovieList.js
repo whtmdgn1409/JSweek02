@@ -5,18 +5,10 @@ var _ = require('lodash');
 
 
 
-// 2. lodash
-
-console.log(_.filter([4,5,6], n=>n%2==0));
-var list = _.map(data, 'title');
-console.log(list);
-
-// let movieList = [];
-// for(i = 0; i<data.length; i++){
-//     movieList[i] = _.filter(data, 'title');
-// }
-
-// console.log(movieList);
+// [2. lodash]
+// Lodash - 1. making movieList
+var list = _.map(data, i=>_.pick(i, 'title', 'year', 'rating', 'genres'));
+// console.log(list);
 
 
 
@@ -25,6 +17,8 @@ console.log(list);
 
 
 
+
+// [1. customFunction]
 // 1. making movie list
 let movieList = {};
 for(i = 0; i<data.length; i++){
@@ -38,4 +32,3 @@ for(i = 0; i<data.length; i++){
 console.log(movieList);
 console.log(typeof(data));
 console.log(data.length);
-// year, rating, genres
