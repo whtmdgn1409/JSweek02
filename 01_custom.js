@@ -24,8 +24,15 @@ Array.prototype.customSome = function customSome(cb){
   return false;
 }
 
+Array.prototype.customForEach = function customForEach(cb){
+  for(var i=0; i < this.length; i++){
+    cb(this[i]);
+  }
+}
+
 console.log([2,3,14,45,56].customFilter(e=>e>46));
 console.log([].customEvery(e=>e<2));
 console.log([2,3,14,45,56].customEvery(e=>e>=2));
 console.log([2,3,14,45,56].customSome(e=>e<2));
 console.log([].customSome(e=>e>2));
+[2,3,14,45,56].customForEach(e => console.log(e));
