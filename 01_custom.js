@@ -38,6 +38,14 @@ Array.prototype.customMap = function customMap(cb){
   return newArr;
 }
 
+Array.prototype.customReduce = function customReduce(cb){
+  var acc = 0;
+  for(var i=0; i< this.length; i++){
+    acc = cb(acc, this[i]);
+  }
+  return acc;
+}
+
 console.log([2,3,14,45,56].customFilter(e=>e>46));
 console.log([].customEvery(e=>e<2));
 console.log([2,3,14,45,56].customEvery(e=>e>=2));
@@ -45,3 +53,4 @@ console.log([2,3,14,45,56].customSome(e=>e<2));
 console.log([].customSome(e=>e>2));
 [2,3,14,45,56].customForEach(e => console.log(e));
 console.log([2,3,14,45,56].customMap(e => e * 2));
+console.log([2,3,14,45,56].customReduce((acc, cur) => acc + cur));
