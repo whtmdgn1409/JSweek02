@@ -37,7 +37,7 @@ var genreUniqList = _.uniq(_.flatten(_.map(data, 'genres')));
 
 // [1. customFunction]
 // 1. making movie list
-let movieList = {};
+var movieList = {};
 for(i = 0; i<data.length; i++){
     movieList[i] = {
         'title': data[i].title,
@@ -45,11 +45,19 @@ for(i = 0; i<data.length; i++){
         'rating' : data[i].rating,
         'genres' : data[i].genres};
 }
-
 // console.log(movieList);
-// console.log(typeof(data));
-// console.log(data.length);
 
 
 // 2. return Over rating MOVIE LIST
+var movieList = {};
+var input = 6.9;
+for(i=0 ; i<data.length; i++) {
+    if(data[i].rating > input){
+        movieList[i] = {'title':data[i].title};
+    }
+}
+// console.log(movieList);
+
+
+
 // 3. NOT overlap GENRE LIST
