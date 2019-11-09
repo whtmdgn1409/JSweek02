@@ -7,20 +7,20 @@ var _ = require('lodash');
 // [2. lodash]
 // Lodash - 1. making movieList
 var list = _.map(data, i=>_.pick(i, 'title', 'year', 'rating', 'genres'));
-console.log(list);
+// console.log(list);
 
 
 
 // Lodash - 2. return Over rating MOVIE LIST
-// var input = 3.3;
-// var choiceRateList = _.map(data, i => _.filter(i, 'rating'));
+var inputRate = 6.9;
+var a = [];
+var filtered = _.map(_.forEach(_.map(data, i => _.pick(i, 'title', 'rating')), function(value){
+    if(value.rating > inputRate ) {
+    a.push(value.title); // 여기서 리스트를 각각 생성하고싶어요.. 
+}}));
 
-
-// // if rating > input ; 
-// console.log(choiceRateList.length);
-// console.log(typeof(choiceRateList[0].rating)); 
-// console.log(choiceRateList);
-
+// console.log(filtered);
+// console.log(a);
 
 
 
