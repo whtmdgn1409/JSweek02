@@ -109,3 +109,42 @@ console.log(arr.customReduce(reducer, 2));
 
 # customFlat
 
+배열 안에 배열이 있을 때 차원을 하나씩 푸는(해제하는) 함수다.
+예를 들면, 
+```
+[10, [23, [24, 23]], 13]
+```
+이라는 배열이 있을 때 하나의 차원을 풀면
+```
+[10, 23, [24, 23], 13]
+```
+이 배열이 되며, 여기서 하나의 차원을 더 풀면
+```
+[10, 23, 24, 23, 13]
+```
+이 배열이 된다.
+
+```javascript
+Array.prototype.customFlat = function(...depth){
+    
+    const reducer = (acc, val) => acc.concat(val);
+    let newArr=this;
+    if(depth[0]){
+        for(let i=0; i<depth[0]; ++i){
+            newArr=newArr.reduce(reducer, []);
+        }
+    }
+    else newArr=this.reduce(reducer, []);
+    return newArr;
+}
+let arr = [10, [18, [19, 22], 8]];
+let arr2 = [10, , 19, 29, , 9];
+console.log(arr.customFlat());
+console.log(arr.customFlat(2));
+console.log(arr2.customFlat());
+```
+
+공식 홈페이지에 나온대로, reduce와 concat을 적절히 활용했다.
+reducer의 val에 배열 자체가 오면 acc 뒤에 val 배열 내용을 쭉 붙이는 함수로 reduce함수를 진행한다.
+중간에 공백이 있으면 붙지 않는다.
+
