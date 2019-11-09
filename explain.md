@@ -203,3 +203,41 @@ console.log(newSet);
 javascript에서도 set은 있다.
 set에 어떤 데이터를 넣어도 중복인 데이터는 한번만 생성되므로 filteredData에 있는 모든 영화 정보들의 genres에 있는 모든 원소들을 다 newSet에 add했다.
 어차피 중복되더라도 한번만 생성되므로 newSet을 출력하면 알맞게 나온다.
+
+
+# list_movies_lodash
+
+자세한 설명은 생략한다.
+
+### 1번 문제
+```javascript
+let movieData = require('./data.js');
+var _ = require('underscore');
+let filteredData = [];
+_.forEach(movieData, function(i){
+    filteredData.push(_.pick(i, ['id', 'title', 'year', 'rating', 'genres']));
+})
+console.log(filteredData);
+// https://lodash.com/docs/4.17.15#pick
+// https://lodash.com/docs/4.17.15#forEach
+```
+
+### 2번 문제
+```javascript
+let input = 6.0;
+let doubleFilteredData = [];
+doubleFilteredData = _.filter(filteredData, i=>i.rating>=input);
+console.log(doubleFilteredData);
+// https://lodash.com/docs/4.17.15#filter
+```
+
+### 3번 문제
+```javascript
+let newSet = new Set();
+_.forEach(filteredData, function(i){
+    _.forEach(i.genres, function(j){
+        newSet.add(j);
+    })
+})
+console.log(newSet);
+```
