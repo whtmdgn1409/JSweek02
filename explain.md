@@ -38,3 +38,74 @@ console.log(arr.customEvery(i => i>7));
 순서대로 조건에 i를 넣어보다가 만족하지 못하는게 있으면 바로 return false를 한다.
 모두 만족하면 true를 리턴한다.
 
+# customSome
+
+어떠한 하나의 원소라도 조건을 만족하는지 판별하는 함수다.
+```javascript
+Array.prototype.customSome = function(myFunc){
+    for(let i=0; i<this.length; ++i){
+        if(myFunc(this[i])) return true
+    }
+    return false;
+}
+let arr = [10, 18, 19, 22, 8];
+console.log(arr.customSome(i => i<7));
+```
+어떠한 원소 하나라도 조건을 만족하면 true, 끝까지 만족하지 못하면 false를 리턴한다.
+
+# customForEach
+
+모든 원소에 대해 해당 함수를 실행하는 함수다.
+```javascript
+Array.prototype.customSome = function(myFunc){
+    for(let i=0; i<this.length; ++i){
+        myFunc(this[i]);
+    }
+}
+let arr = [10, 18, 19, 22, 8];
+arr.customSome(function(element){console.log(element)});
+```
+입력받은 myFunc에 인자를 하나하나 넣어서 실행한다.
+
+# customMap
+
+모든 원소에 대해 해당 함수를 실행한 배열을 리턴하는 함수다.
+
+```javascript
+Array.prototype.customMap = function(myFunc){
+    let newArr = [];
+    for(let i=0; i<this.length; ++i){
+        newArr.push(myFunc(this[i]));
+    }
+    return newArr;
+}
+let arr = [10, 18, 19, 22, 8];
+console.log(arr.customMap(i => i+7));
+```
+새로운 배열 newArr을 선언하고 각각의 원소에 대한 결과값을 push해준 후 리턴한다.
+
+# customReduce
+
+배열에서 인접한 두 원소를 이용해 하나의 새로운 값을 도출하도록 reducer함수를 만든다.
+그 reducer함수를 배열 전체에 적용한다.
+인자가 두개이면, 두번째 인자를 초기값으로 사용한다.(원래는 배열의 0번째 인덱스가 초기값)
+```javascript
+const reducer = (accumulator, currentValue) => accumulator * currentValue;
+Array.prototype.customReduce = function(myFunc, ...begin){
+    let newValue;
+    if(begin[0]) newValue=myFunc(begin[0], this[0]);
+    else newValue = this[0];
+    for(let i=1; i<this.length; ++i){
+        newValue = myFunc(newValue, this[i]);
+    }
+    return newValue;
+}
+let arr = [10, 18, 19, 22, 8];
+console.log(arr.customReduce(reducer));
+console.log(arr.customReduce(reducer, 2));
+```
+새로운 값 newValue(최초엔 초기값이 들어있음)와 주어진 배열의 다음 원소를 myFunc에 대입해 하나의 값을 얻는다.
+그 값을 다시 newValue에 넣어 모두 소진될때까지 반복한다.
+
+# customFlat
+
