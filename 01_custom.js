@@ -68,3 +68,32 @@ console.log([].customSome(e=>e>2));
 console.log([2,3,14,45,56].customMap(e => e * 2));
 console.log([2,3,14,45,56].customReduce((acc, cur) => acc + cur));
 console.log([2,[3,[14,45]],56].customFlat(1));
+
+
+const movieData = require('./data');
+
+//step1
+const newList = movieData.customMap(e =>{
+  return {
+    id: e.id,
+    title: e.title,
+    year: e.year,
+    rating: e.rating,
+    genres: e.genres,
+  }
+});
+
+//step2
+const ratingList = newList.customFilter(e => e.rating > 7);
+
+//step3
+const genersList = newList.customMap(e => {
+  return e.genres;
+})
+const newGenerList = [];
+genersList.customFlat().customForEach(e=> {
+  if(newGenerList.indexOf(e) === -1) {
+    newGenerList.push(e);
+  }
+})
+console.log(newGenerList);
