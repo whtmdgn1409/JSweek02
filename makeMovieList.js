@@ -62,5 +62,8 @@ for(i=0 ; i<data.length; i++) {
 
 // 3. NOT overlap GENRE LIST
 var movieList = [];
-for( i = 0 ; i<data.length ; i++) { movieList[i] = data[i].genres};
-console.log(movieList);
+for( i = 0 ; i<data.length ; i++) { movieList.push(data[i].genres); };
+var result = new Set(movieList.flat());
+
+// console.log(movieList);
+// console.log(result);
