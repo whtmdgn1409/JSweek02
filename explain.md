@@ -2,7 +2,7 @@
 
 조건에 맞는 배열의 원소들만 걸러내는 함수다.
 
-배열의 타임, Array에 Prototype을 추가한다. 내장 함수로 사용할 수 있다.
+배열의 타입, Array에 Prototype을 추가한다. 내장 함수로 사용할 수 있다.
 Swift의 Extension처럼 Array타입으로 이루어진 모든 곳에서 사용 가능하다.
 ```javascript
 Array.prototype.customFilter = function(myFunc){
@@ -57,13 +57,13 @@ console.log(arr.customSome(i => i<7));
 
 모든 원소에 대해 해당 함수를 실행하는 함수다.
 ```javascript
-Array.prototype.customSome = function(myFunc){
+Array.prototype.customForEach = function(myFunc){
     for(let i=0; i<this.length; ++i){
         myFunc(this[i]);
     }
 }
 let arr = [10, 18, 19, 22, 8];
-arr.customSome(function(element){console.log(element)});
+arr.customForEach(function(element){console.log(element)});
 ```
 입력받은 myFunc에 인자를 하나하나 넣어서 실행한다.
 
@@ -148,3 +148,58 @@ console.log(arr2.customFlat());
 reducer의 val에 배열 자체가 오면 acc 뒤에 val 배열 내용을 쭉 붙이는 함수로 reduce함수를 진행한다.
 중간에 공백이 있으면 붙지 않는다.
 
+# list_movies_custom
+
+### 1번 문제
+
+```javascript
+let movieData = require('./data.js');
+let filteredData = [];
+for(let i=0; i<movieData.length; ++i){
+    let newArr = [];
+    newArr.push(movieData[i].id);
+    newArr.push(movieData[i].title);
+    newArr.push(movieData[i].year);
+    newArr.push(movieData[i].rating);
+    newArr.push(movieData[i].genres);
+    filteredData.push(newArr);
+}
+console.log(filteredData);
+```
+data.js에서 추출한 모듈을 movieData에 넣는다.
+넣은 데이터에서 id, title, year, rating, genres만 따로 추출해서 filteredData에 넣는다.
+
+### 2번 문제
+
+```javascript
+let input = 6.0;
+let doubleFilteredData = [];
+
+doubleFilteredData = filteredData.customFilter(i => i[3]>=input);
+console.log(doubleFilteredData);
+```
+
+우선 인풋 받는걸 readline으로 시도 해봤으나 비동기식으로 처리되는 바람에 우선 input에 값을 넣어놨다. (추후 수정)
+customFilter를 이용한다.
+filteredData에는 현재
+0번째 : id
+1번째 : title
+2번째 : year
+3번째 : rating
+4번째 : genres
+가 들어있는 상태이다. 이중 3번째 인덱스인 rating을 이용하므로, 인자로 들어가는 함수에 i[3]이 input 이상인 값인지 판별하는 함수를 넣어줬다.
+
+### 3번 문제
+
+```javascript
+let newSet = new Set();
+filteredData.customForEach(function(i){
+    i[4].customForEach(function(j){
+        newSet.add(j);
+    })
+})
+console.log(newSet);
+```
+javascript에서도 set은 있다.
+set에 어떤 데이터를 넣어도 중복인 데이터는 한번만 생성되므로 filteredData에 있는 모든 영화 정보들의 genres에 있는 모든 원소들을 다 newSet에 add했다.
+어차피 중복되더라도 한번만 생성되므로 newSet을 출력하면 알맞게 나온다.
