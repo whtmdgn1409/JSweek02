@@ -18,6 +18,8 @@ console.log(filtered);
 
 
 
+
+
 /// 2. every
 // original
 var ages = [32, 33, 16, 40];
@@ -36,6 +38,8 @@ console.log(ages.customEvery( age => age>=13 ));
 
 
 
+
+
 /// 3. some
 // original
 var ages = [32, 33, 16, 40];
@@ -49,6 +53,8 @@ Array.prototype.customSome = function(func) {
     return ( cnt!=0 ? true : false);
 }
 console.log(ages.customSome( age => age>=35)); 
+
+
 
 
 
@@ -70,6 +76,8 @@ console.log(testArray);
 
 
 
+
+
 /// 5. map
 // original
 var array = [1, 4, 9, 16];
@@ -81,11 +89,41 @@ Array.prototype.customMap = function(func) {
     for( i=0 ; i<this.length; i++) result[i] = func(this[i]);
     return result;
 }
+
 const map = array.customMap( x => x*2 );
 console.log(map)
 
 
 /// 6. reduce
+
+// original : reduce를 이용하여 다양한 기능의 함수를 구현가능
+// // map과 동일한 기능을 하는 reduce
+// result = number.reduce((acc, cur) => {
+//     acc.push(cur % 2 ? '홀수' : '짝수');
+//     return acc;
+//   }, []);
+// console.log(result); //[ '홀수', '짝수', '홀수' ]
+
+// // filter와 동일한 기능을 하는 reduce
+// result = number.reduce((acc, cur) => {
+//     if(cur%2) acc.push(cur);
+//     return acc;
+// }, []);
+// console.log(result); //[1,3]
+
+
+//custom
+const reducer = (accumulator, value) => accumulator + value;
+
+Array.prototype.customReduce = function customReduce(func) {
+    var accumulator = 0; // 누적 값
+    for( i=0 ; i<this.length; i++) {
+        accumulator = func(accumulator, this[i]);
+    }
+    return accumulator;
+}
+var data = [1, 2, 3, 4, 5];
+console.log(data.customReduce(reducer));
 
 
 
@@ -112,3 +150,9 @@ Array.prototype.customFlat = function customFlat() {
 
 var arr1 = [1,2,3,[1,2,3,4, [2,3,4]]];
 console.log(arr1.customFlat());
+
+
+
+console.log('-----------------------------------');
+/////////////////////////////////////////
+
