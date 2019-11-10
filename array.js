@@ -78,6 +78,27 @@ function customReduce(callbackfn, initialValue) {
   return accumulator;
 }
 
+function customFlat(depth = 1) {
+  if (depth < 1) {
+    depth = 1;
+  }
+  const array = this;
+  let result = [...array];
+  while (depth) {
+    result = result.reduce(
+      (acc, val) =>
+        Array.isArray(val)
+          ? [...acc, ...val]
+          : val !== undefined
+          ? [...acc, val]
+          : acc,
+      []
+    );
+    depth--;
+  }
+  return result;
+}
+
 function linkArray(functions) {
   for (func of Object.keys(functions)) {
     Array.prototype[func] = functions[func];
@@ -91,7 +112,8 @@ module.exports = {
     customSome,
     customForEach,
     customMap,
-    customReduce
+    customReduce,
+    customFlat
   }
 };
 
@@ -101,9 +123,13 @@ linkArray({
   customSome,
   customForEach,
   customMap,
-  customReduce
+  customReduce,
+  customFlat
 });
 
+const ddd = [1, 2, [3, 4, 5], 4, [2, 3, 4, [4, 5]], , ,];
+
+console.log(ddd.customFlat(2));
 // console.log([1, 2, 3, 4, 5].customFilter(v => v > 2));
 console.log([1, 2, 3, 4, 5].customEvery(v => v > 0));
 console.log([1, 2, 3, 4, 5].customSome(v => v == 1));
