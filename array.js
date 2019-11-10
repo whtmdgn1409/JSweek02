@@ -126,13 +126,3 @@ linkArray({
   customReduce,
   customFlat
 });
-
-const ddd = [1, 2, [3, 4, 5], 4, [2, 3, 4, [4, 5]], , ,];
-
-console.log(ddd.customFlat(2));
-// console.log([1, 2, 3, 4, 5].customFilter(v => v > 2));
-console.log([1, 2, 3, 4, 5].customEvery(v => v > 0));
-console.log([1, 2, 3, 4, 5].customSome(v => v == 1));
-[1, 2, 3, 4, 5].customForEach(v => console.log(v));
-console.log([1, 2, 3, 4, 5].customMap(v => v * v));
-console.log([1, 2, 3, 4, 5].customReduce((acc, cur) => acc + cur));
