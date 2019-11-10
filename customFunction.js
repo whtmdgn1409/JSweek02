@@ -93,3 +93,22 @@ console.log(map)
 
 
 
+
+/// 7. Flat
+
+Array.prototype.customFlat = function customFlat() {
+    const stack = [...this];
+    const result = [];
+    while (stack.length) {
+      const next = stack.pop();
+      if (Array.isArray(next)) {
+        stack.push(...next); // 남은것들 push 
+      } else {
+        result.push(next);
+      }
+    }
+    return result.reverse();
+}
+
+var arr1 = [1,2,3,[1,2,3,4, [2,3,4]]];
+console.log(arr1.customFlat());
