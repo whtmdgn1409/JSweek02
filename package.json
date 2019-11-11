@@ -4,7 +4,7 @@
   "description": "## 배열의 내장 함수",
   "main": "customEvery.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "dependencies": {
     "lodash": "^4.17.15",
     "underscore": "^1.9.1"
-  }
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
+  },
+  "keywords": []
 }

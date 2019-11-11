@@ -241,3 +241,100 @@ _.forEach(filteredData, function(i){
 })
 console.log(newSet);
 ```
+
+# assert_
+
+테스팅하는 함수이다. exception에 거짓인 값이 들어가면 error message를 throw해준다.
+
+### 1번 문제
+
+```javascript
+function assert(exception){
+    if(exception === false){
+        throw "error message";
+    }
+}
+try{
+    assert(false);
+}
+catch(e) {
+    console.error(e);
+}
+```
+
+try~catch 로 throw를 받는다.
+
+### 2번 문제
+```javascript
+function expect(value, equal){
+    try{
+        assert(value == equal);
+    }
+    catch(e){
+        console.error(e);
+    }
+}
+```
+이제부턴 expect함수에 두개의 인자를 주고, 이 인자들이 같은 값인지 비교해서 틀리면 error를 throw한다.
+
+### 3번 문제
+expect함수를 조금 바꿔본다.
+```javascript
+function expect(value, equal){
+    try{
+        if(value instanceof Array && equal instanceof Array){
+            console.log('this is Array');
+            assert(JSON.stringify(value) == JSON.stringify(equal));
+        }
+        else if(value instanceof Object && equal instanceof Object){
+            console.log('this is Object');
+            assert(Object.is(value, equal));
+        }
+        else{
+            console.log('What is this?');
+            assert(value == equal);
+        }
+    }
+    catch(e){
+        console.error(e);
+    }
+}
+```
+value와 equal이 배열이면 JSON.stringify로,
+value와 equal이 객체이면 Object.is로,
+그게 아니라면 그냥 ==로 비교한다.
+
+틀리면 error를 throw한다.
+
+# jest(test.js)
+
+```
+npm init -y
+npm i -D jest
+```
+package.json파일을 열고, script부분을 수정
+```JSON
+"scripts": {
+    "test": "jest"
+}
+```
+이제 npm test 명령어로 테스트 가능.
+
+test.js 파일 내용 작성.
+```javascript
+test('1 is 1', () => {
+    expect(1).toBe(1);
+})
+function f(b,c){
+    return b.concat(c);
+}
+test('배열 비교', () => {
+    expect(f([1, 2], [3, 4])).toEqual([1, 2, 3, 4]);
+})
+```
+이후 
+```
+npm test
+```
+실행하면 정상적으로 passed 되는걸 볼 수 있다.
+
