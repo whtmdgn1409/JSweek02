@@ -1,0 +1,59 @@
+<html>
+  <header>
+    <meta charset="UTF-8">
+  </header>
+  <body>
+    <div class="wrapper">
+      <h1 class="title">자바스크립트 실행컨텍스트와 스코프</h1>
+      자바스크립트는 함수형 언어라고 부르기도 한다.<br>
+      <br><br>
+      <h2 class="title">01 실행컨텍스트</h2>
+      <p>코드가 실행되고 있는 범위에 대한 추상적 개념</p>
+      <li>Global Execution Context</li>
+      특정 함수안에서 실행되는 코드가 아니라면 코드는 전역 컨텍스트에서 실행된다.
+      전역 컨텍스트에서 이루어 지는 일에는 두가지가 있다. <br>
+      1) window 오브젝트인 전역 컨텍스트를 생성<br>
+      2) this를 Global object로 할당<br><br>
+      <li>Functional Execution Context</li>
+      함수가 호출될 때마다 해당 함수에 대한 실행 컨텍스트가 생성된다.
+      각각의 함수들은 자신만의 실행컨텍스트를 가지지만 실행 컨텍스트는 함수가 호출이 되어야 만들어진다.
+      <br><br>
+      <li>Eval Execution Context</li>
+      <br><br>
+      
+      <h2 class="title">02 Excution Stack과 함수 실행 순서</h2>
+      Stack은 LIFO(Last in First out) 자료구조로
+      코드가 실행하면서 만드는 실행 컨텍스트들이 저장되는 구조이다. <br>
+      <li>자바스크립트 엔진이 script tag를 처음 만나면 전역 컨텍스트를 만들고 스택에 push한다.</li> 
+      <li>다른 함수가 호출되면 해당 함수에 대한 실행 컨텍스트를 생성하고 스택의 제일 꼭대기에 push한다.</li>
+      <li>스택에서 가장 위에 있는 함수를 먼저 실행하고 함수가 일을 마치면 스택에서 제거된다.</li>
+      <br><br>
+
+      <h2 class="title">03 실행컨텍스트 생성 및 파기과정</h2>
+      <p>
+        <li>스코프 정보(스코프 체인)생성</li>
+        - 현재 실행컨텍스트의 유효범위를 나타내는 스코프 정보 생성(함수의 유효범위 정보) <br>
+        - 스코프 정보를 통해 상위 실행 컨텍스트 변수에 접근 가능<br><br>
+        <li>변수 객체(Variable Object)생성</li>
+        - 실행에 필요한 여러 정보(변수, 함수, 매개변수 - 프로퍼티로는 매개변수를, 값으로는 인수를)를 담음
+        - 전역코드 실행컨텍스트에서는 전역객체가 변수 객체역할<br><br>
+        <li>this 바인딩</li>
+        - this 키워드를 통해 참조되는 값이 바인딩됨<br><br>
+        <li>코드 실행</li><br>
+        <li>실행 컨텍스트 파기</li>
+        - 함수코드의 실행컨텍스트 함수 실행이 끝나면 해당 함수의 실행컨텍스트를 파기함<br><br>
+      </p>
+    </div>
+  </body>
+</html>
+
+<style>
+  .title{
+    color: #1366ff;
+  }
+  .wrapper{
+    width:90%;
+    margin:auto;
+    padding: 30px 0;
+  }
+</style>
