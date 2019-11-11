@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>실행 컨텍스트, 스코프</title>
+    <link rel="stylesheet" href="./css.css" type="text/css">
+</head>
+<body>
+    <p>
+    1. 실행 컨텍스트<br>
+    실행 컨텍스트는 실행 가능한 코드를 형상화하고 구분하는 추상적인 개념이다.
+    </p>
+    <pre>
+        <code>
+                var x = 'xxx';
+
+                function foo () {
+                  var y = 'yyy';
+                
+                  function bar () {
+                    var z = 'zzz';
+                    console.log(x + y + z);
+                  }
+                  bar();
+                }
+                foo();    
+        </code>
+    </pre>
+    
+    <p>
+    위 코드를 실행하면 아래와 같이 실행 컨텍스트 스택에 쌓인다.<br>
+    스택의 아래에 쌓이면 쌓일수록 상위 실행 컨텍스트라는 것이다.<br>
+    <br>
+    <img src=ec_1.png><br>
+    스택에 들어가는 각각의 원소는 3가지의 프로퍼티로 이루어져 있다.<br>
+    Variable Object, Scope chain, thisValue이다.<br>
+    (1) 변수 객체 Variable Object<br>
+        말 그대로 변수들을 담는다. parameter들과 arguments도 여기 들어있다. 함수의 선언도 여기 있다.<br>
+    <br>
+    (2) 스코프 체인 Scope chain<br>
+    스코프 체인은 해당 전역 또는 함수가 참조할 수 있는 변수, 함수 선언 등의 정보를 담고 있는 전역 객체(GO)<br>
+    또는 활성 객체(AO)의 리스트로 이루어져 있다.<br>
+    첫번째부터 순서대로 상위 컨텍스트에서 사용 가능한 것들을 불러오며,<br>
+    가장 마지막 리스트에는 전역객체에서 사용 가능한 것들을 불러온다.<br>
+    <br>
+    (3) this value<br>
+    this value에는 this가 들어있다. 이는 함수의 호출단계에서 결정된다.<br>
+    <br>
+    </p>
+    <p>
+    2. 스코프<br>
+    스코프는 변수나 함수가 생성되면, 이를 접근할 수 있는 영역을 말한다.<br>
+    전역 스코프는 javascript랑 nodejs랑 다루는 부분이 약간 다르다.<br>
+    javascript에선, 변수가 중괄호 바깥이나 함수 밖에 선언되면 전역 스코프에 선언되었다고 본다.<br>
+    Node.js에선, 변수가 함수 안에 포함되지 않은 곳에 선언되면 전역 스코프에 선언되었다고 본다.<br>
+    <br>
+    지역 스코프에는 함수스코프와 블록스코프가 있다.<br>
+    함수 스코프는 말 그대로 함수 안에서만 사용할 수 있는 변수의 범위이고,<br>
+    블록 스코프는 해당 지역(중괄호) 안에서만 사용할 수 있는 변수다.<br>
+    var는 전역 스코프를 사용하기 때문에 블록 스코프는 let이나 const로 선언하면 된다.<br>
+    </p>
+
+
+</body>
+</html>
