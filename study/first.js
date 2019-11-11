@@ -1,4 +1,4 @@
-/* FILTER*/
+/* FILTER */
 Array.prototype.customFilter = function(func){
     let newArr=new Array();
     for(let i=0;i<this.length;i++){
@@ -47,7 +47,7 @@ Array.prototype.customReduce = function(func,first){
     for(let i=0;i<this.length;i++){
         total=func(total,this[i]);
     }
-    return total; // 배열 반환
+    return total; // 결과값 반환
 };
 
 

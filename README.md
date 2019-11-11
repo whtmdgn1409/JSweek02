@@ -6,12 +6,12 @@
 
 자바스크립트의 배열이 내장하는 함수들을 직접 구현해 본다. 함수의 원형은 w3schools 나 mdn 사이트에서 확인할 수 있다.
 
-1. filter > customFilter
-2. every > customEvery
-3. some > customSome
-4. forEach > customForEach
-5. map > customMap
-6. reduce > customReduce
+1. filter > customFilter // 특정 기준을 통과한 것들만 배열로 반환
+2. every > customEvery // 모든 값이 기준을 통과했을 때 true 반환
+3. some > customSome // 몇 개의 값이 기준을 통과했을 때 true 반환
+4. forEach > customForEach // 배열 하나하나의 값을 이용할 수 있게 함
+5. map > customMap // 배열 하나 당 계산하여 배열로 반환
+6. reduce > customReduce // 배열을 모두 계산한 ?
 
 위의 함수들은 protochain을 이용해 실제 Array에 연결합니다.
 
@@ -52,5 +52,35 @@ jest 라이브러리를 설치한 후 직접 만든 assert함수 대신 사용�
 ## 다음 스터디 내용
 
 ### 실행컨텍스트
+실행컨텍스트 : 코드가 실행되고 있는 구역, 범위에 대한 개념이다.
+Type :
+1. Global_ : 전역 영역에 존재하는 코드
+2. Functional_ : 함수 내에 존재하는 코드
+3. Eval_ : 많이 사용하지 않음
 
+스택 구조
+
+- Environment
+1. Lexical_
+변수와 해당 변수에 대입된 값이 매핑되는 곳 (매핑만 됨) -> 함수, 변수 let과 const 저장
+2. Variable_
+ : Lexical과 비슷 -> 차이점 : 변수 var만 저장
+    1. Envrionment Records : 함수와 변수를 기록
+    2. Reference to outer enviroment : 외부 lexical 환경으로 접근, 이 환경 내에서 변수를 찾지 못하면 외부 환경에서 해당 변수를 찾아볼 수 있다
+    3. This binding : this의 값이 저장
+**시점이 중요
+ lexical scoping에 따라 전역 변수 객체에 스코프 체인은 선언 시에 이미 정해져 있습니다.
+*** scopechain : 자신과 상위 스코프들의 변수 객체
+****호이스팅
+호이스팅이란 변수를 선언하고 초기화했을 때 선언 부분이 최상단으로 끌어올려지는 현상을 의미합니다. 
 ### 스코프
+1. 전역 스코프 
+2. 지역 스코프
+-> 변수, 선언 위치에 의해 스코프를 가지게 된다. > 유효 범위가 다르다.
+
+- 암묵적 전역 : 함수 내에 키워드 사용없이 할당했지만, 외부에 없어도 함수 내에 키워드 없이 사용한 변수가 있다면 암묵적으로 전역변수로 선언됨.
+
+- 선언된 시점으로 유효범위 생긴다.
+자바스크립트는 function-level Scope를 사용합니다. 
+
+@ https://m.blog.naver.com/gi_balja/221249873376

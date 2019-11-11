@@ -69,3 +69,16 @@ function takeGenre(value){
     return value['genres'];
 }
 var genreLists = data.customFilter(takeGenre);
+
+function assert(expect, equal){
+    if(expect() instanceof Object){
+        let res= expect();
+        for(let i=0;i<res.length;i++){
+            if(res[i]!=equal[i]){
+                return console.log("실패");
+            }
+        } return console.log("성공");
+    }
+    if(expect()!=equal) return console.log('실패');
+    console.log("성공");
+}
