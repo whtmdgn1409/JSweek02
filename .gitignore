@@ -1,0 +1,6 @@
+/node_modules
+test.js
+test.html
+package.json
+packege-lock.json
+.DS_Store

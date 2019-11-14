@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+    <head>
+        <title>week 03 PREVIEW</title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css">
+        <style>
+            body {
+                font-family: "NanumBarunGothicLight", sans-serif;
+                font-size: 90%;
+            }
+            a {
+                background-color: #FFCFCE";
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>📝 week 03 PREVIEW</h1>
+        </header>
+        <main>
+            <h1>실행 컨텍스트(Execution Context)</h1>
+            <p>
+                <p>자바스크립트 코드가 실행되고 연산되는 범위를 나타내는 추상적인 개념으로, 자바스크립트가 실행될 때 생성되는 하나의 실행단위를 실행 컨텍스트라고 한다. <br />
+                    <span style="background-color: #FFCFCE">코드가 실행된다 => 실행 컨텍스트 내부에서 실행되고 있다는 뜻!</span><br />
+                쉽게 말해, 코드가 실행되고 있는 구역, 범위에 대한 개념!
+                </p>
+                <p>일종의 call stack 형태를 취하고 있으며, stack 바닥에는 global execution context가 존재하고, 가장 상위에는 현재 활성화된 execution context가 놓이게된다!</p>
+                <p >📍 call stack : 실행할 컴퓨터프로그램 코드 정보를 저장하려는 스택 자료구조 = the stack = execution stack = control stack = run-time stack = machine stack</p>
+                <h3>Types of Execution Context</h3>
+                <ul>
+                    <li>
+                        <b>전역 코드</b> : 전역 영역에 존재하는 코드로, <b>가장 베이스가 되는 실행 구역</b>!<br />
+                        특정 '함수'안에서 실행되는 코드가 아니라면 코드는 전역 컨텍스트에서 실행된다.<br/><br />
+                        전역 컨텍스트에서 발생하는 일은 크게 2가지,
+                        <ol>
+                            <li>window 오브젝트인 전역 컨텍스트를 생성하고</li>
+                            <li>this를 global object 로 할당한다</li>
+                        </ol>
+                        이다.
+                    </li>
+                    <li>
+                        <b>함수 코드</b> : 함수 내에 존재하는 코드<br />
+                        함수가 호출될 때 마다, 해당 함수에 대한 실행 컨텍스트가 생성된다. 각각의 함수들은 <span style="background-color: #FFCFCE">각각 자신만의 실행컨텍스트</span>를 가지지만,
+                        실행 컨텍스트는 <span style="background-color: #FFCFCE">함수가 호출이 되어야 만들어진다</span>.
+                    </li>
+                    <li>
+                        <b>eval 코드</b> : eval 함수로 실행되는 코드
+                    </li>
+                </ul>
+                <p>자바스크립트 엔진은 코드를 실행하기 위해 실행에 필요한 정보들</p>
+                <ul>
+                    <li>변수</li>
+                    <li>함수 선언</li>
+                    <li>변수의 유효범위(scope)</li>
+                    <li>this</li>
+                </ul>
+                <p>이와같은 정보를 형상화/구분하기 위해 자바스크립트 엔진은 실행 컨텍스트를 물리적 객체의 형태로 관리한다. </p>
+                <h3>Execution Stack(호출스택)과 함수 실행 순서</h3>
+                <p>다른 프로그래밍 언어의 호출스택과 <b>Execution Stack</b>은 같은 말이다.</p>
+                <img src="https://poiemaweb.com/img/ec_1.png" width="500px">
+                
+                <ol>
+                    <li>자바스크립트 엔진이 script tag를 처음 만난다</li>
+                    <li>전역 컨텍스트를 만들고 현재 실행되고있는 호출 스택에 push🔥</li>
+                    <li>다른 함수가 호출되면 해당 함수에 대한 실행컨텍스트를 생성하고, 스택의 제일 꼭대기에 push🔥</li>
+                    <li>🔃 자바스크립트엔진은 실행 컨텍스트가 호출 스택에서 가장 위에 있는 함수를 실행</li>
+                    <li>함수가 할일을 마치면 스택에서 제거된다 pop✨</li>
+
+                </ol>
+                <p>🧐 감이 오지 않으니 좀 더 자세하게 전체적인 프로세스를 살펴보자.. </p>
+                <img src="https://poiemaweb.com/img/ec_19.png" width=400px>
+                <p>
+                </p>
+                <h3>Execution Context의 구성</h3>
+                <ol>
+                    <b>Creation Phase</b>
+                    <li>
+                        LexicalEnvironment Component 생성 
+                        <ul>
+                            <li>Environment Records : 변수, 함수 선언을 저장하고, 글로벌 오브젝트에 기록한다.</li>
+                            <li>Reference to outer environment : 외부 환경에서 해당 변수를 찾는다.</li>
+                            <li>This binding : 글로벌 실행컨텍스트에서는 this = global obj <br />
+                            함수 실행 컨텍스트에서는 this = 해당객체obj 또는 undefined</li>
+                        </ul>
+                    </li>
+                    <li>Variable Environment Component 생성</li>
+                    <ul>
+                        <li>위와 같이 Environment Records, Reference to outer environment, This binding 의 일을 하지만!!<br />
+                        Variable Environment Component에서는 변수 var! 만 저장하고, <br />
+                        LexicalEnvironment Component에서는 함수선언과, let/const 변수 바인딩을 저장한다. 
+                        </li>
+                    </ul>
+                    <b>Execution Phase</b> <br />: 코드를 읽으며 한줄한줄 실행하면서, 선언한 변수에 값을 할당한다. 
+                </ol>
+            </p>
+            <h3>실행 컨텍스트의 3가지 객체</h3>
+            <p>
+                <p>
+                    실행 컨텍스트는 실행 가능한 코드를 형상화하고 구분하는 추상적인 개념이지만, 물리적으로는 객체의 형태를 가지며 아래의 3가지 프로퍼티를 소유한다.<br />
+                    <span style="background-color: #FFCFCE">프로퍼티란 ? </span> <br />
+                    <ul>
+                        <li>어떤 다른 값과 연관을 갖고 있을 때 property라고 부른다.</li>
+                        <li>ex. 문자열에는 Length라는 property가 있는데, 이 프로퍼티는 문자열 안에 있는 문자의 양을 정수로 나타낸 값을 담고있음!</li>
+                        <li><span  style="background-color: #FFCFCE">cf. property vs method의 관계</span></li>
+                        <ul>
+                            <li>프로퍼티는 object를 위해서 데이터를 저장</li>
+                            <li>메소드는 object가 요청받을 수 있는 액션</li>
+                        </ul>
+                    </ul>
+                    
+                    
+                    
+                    <ol>
+                        <li><b>스코프 체인의 생성과 초기화</b>
+                            <ul>
+                                <li>스코프 체인(Scope Chain) : 일종의 리스트로, 스코프 체인은 해당 전역 또는 함수가 참조할 수 있는 변수, 함수 선언등의 정보를 담고있는 전역객체이다.  </li>
+                            </ul>
+                        </li>
+                        <li><b>Variable Instantiation 실행</b></li>
+                        <li><b>this value 결정</b></li>
+                    </ol>
+                </p>
+            </p>
+            <br />
+            <br />
+            <h3>📎 Summary</h3>
+            <img src="https://www.dropbox.com/s/c9rg72fludmb0ak/84.png?dl=1" width=400px>
+            <p>
+                let과 const는 실행 컨텍스트가 만들어질때(creation phase) 어떤 값도 가지고있지 않지만, var은 undifined 를 가지고있다.<br />
+                그 이유는 실행컨텍스트가 만들어지는동안 코드는 변수+함수선언을 위해 스캔.<br />
+                이때 함수의 선언은 environment에 함수 전체가 다 저장되지만 ! 변수들은 기본값으로 undifined나 아직 초기화되지 않은 상태로 저장된다.<br />
+                이떄문에 var 변수가 선언되기 전에 undefined라는 값으로 접근할 수 있는 것이고, let과 const를 선언하기 전에 접근하면 reference error를 얻게되는 것이다.
+                그리고 이 과정을 <span style="background-color: #FFCFCE">호이스팅</span>이라고 부른다. <br />
+                ⭐️ <b>호이스팅</b> : 일단 모든 선언을 가져오는 것 !(변수 호이스팅 : 선언만 가져옴, 함수 호이스팅 : 정의문도 같이 가져옴) <br />
+                execution phase동안 자바스크립트 엔진이 소스 코드에서 let 변수의 값이 선언된 곳을 찾지 못하면 undefined를 할당한다.
+
+                <br />
+                <br />
+                <br />
+                keep을 이용하여 실행컨텍스트를 유지!
+            </p>
+            <h3>
+                scope
+            </h3>
+            <p>
+                대부분의 언어는 {} 중괄호를 기준으로 scope이 결정되는데, 자바스크립트는 실행 컨텍스트가 함수 호출될때 호출되기때문에 ! 함수 단위로 scope 가 결정된다.<br />
+                그래서 let, const 가 블록단위로 scope 이 결정되는 것이다. 
+            </p>
+        </main>
+    </body>
+</html>
