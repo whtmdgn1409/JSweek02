@@ -1,0 +1,23 @@
+{
+  "name": "week02",
+  "version": "1.0.0",
+  "description": "자바스크립트의 배열이 내장하는 함수들을 직접 구현해 본다. 함수의 원형은 w3schools 나 mdn 사이트에서 확인할 수 있다.",
+  "main": "customEvery.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wearenotyourkind/week02.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wearenotyourkind/week02/issues"
+  },
+  "homepage": "https://github.com/Wearenotyourkind/week02#readme",
+  "dependencies": {
+    "jest": "^24.9.0",
+    "lodash": "^4.17.15"
+  }
+}
