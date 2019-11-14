@@ -1,0 +1,128 @@
+function customFilter(callbackfn, thisArg) {
+  const array = this;
+  const length = array.length;
+  if (thisArg) {
+    callbackfn = callbackfn.bind(thisArg);
+  }
+  const result = [];
+  for (let index = 0; index < length; index++) {
+    const element = array[index];
+    callbackfn(element, index, array) && result.push(element);
+  }
+  return result;
+}
+
+function customEvery(callbackfn, thisArg) {
+  const array = this;
+  const length = array.length;
+  if (thisArg) {
+    callbackfn = callbackfn.bind(thisArg);
+  }
+  let result = true;
+  for (let index = 0; index < length; index++) {
+    const currentValue = array[index];
+    result = result && callbackfn(currentValue, index, array);
+  }
+  return result;
+}
+
+function customSome(callbackfn, thisArg) {
+  const array = this;
+  const length = array.length;
+  if (thisArg) {
+    callbackfn = callbackfn.bind(thisArg);
+  }
+  let result = false;
+  for (let index = 0; index < length; index++) {
+    const currentValue = array[index];
+    result = result || callbackfn(currentValue, index, array);
+  }
+  return result;
+}
+
+function customForEach(callbackfn, thisArg) {
+  const array = this;
+  const length = array.length;
+  if (thisArg) {
+    callbackfn = callbackfn.bind(thisArg);
+  }
+  for (let index = 0; index < length; index++) {
+    const currentValue = array[index];
+    callbackfn(currentValue, index, array);
+  }
+}
+
+function customMap(callbackfn, thisArg) {
+  const array = this;
+  const length = array.length;
+  if (thisArg) {
+    callbackfn = callbackfn.bind(thisArg);
+  }
+  const result = [];
+  for (let index = 0; index < length; index++) {
+    const currentValue = array[index];
+    result.push(callbackfn(currentValue, index, array));
+  }
+  return result;
+}
+
+function customReduce(callbackfn, initialValue) {
+  const array = this;
+  const length = array.length;
+  const initialIndex = initialValue ? 0 : 1;
+  let accumulator = initialValue ? initialValue : array[0];
+  for (let currentIndex = initialIndex; currentIndex < length; currentIndex++) {
+    const currentValue = array[currentIndex];
+    accumulator = callbackfn(accumulator, currentValue, currentIndex, array);
+  }
+  return accumulator;
+}
+
+function customFlat(depth = 1) {
+  if (depth < 1) {
+    depth = 1;
+  }
+  const array = this;
+  let result = [...array];
+  while (depth) {
+    result = result.reduce(
+      (acc, val) =>
+        Array.isArray(val)
+          ? [...acc, ...val]
+          : val !== undefined
+          ? [...acc, val]
+          : acc,
+      []
+    );
+    depth--;
+  }
+  return result;
+}
+
+function linkArray(functions) {
+  for (func of Object.keys(functions)) {
+    Array.prototype[func] = functions[func];
+  }
+}
+module.exports = {
+  linkArray,
+  funcs: {
+    customFilter,
+    customEvery,
+    customSome,
+    customForEach,
+    customMap,
+    customReduce,
+    customFlat
+  }
+};
+
+linkArray({
+  customFilter,
+  customEvery,
+  customSome,
+  customForEach,
+  customMap,
+  customReduce,
+  customFlat
+});
