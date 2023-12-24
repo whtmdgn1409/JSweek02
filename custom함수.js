@@ -38,7 +38,7 @@ const customforEach = (array, callback) => {
 const customMap = (array, conditionFunction) => {
   let mappingArray = [];
   for (let i = 0; i < array.length; i++) {
-    mappingArray.push(conditionFunction(array[i]));
+    mappingArray.push(conditionFunction(array[i], i, array));
   }
   return mappingArray;
 };
