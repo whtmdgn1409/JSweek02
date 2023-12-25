@@ -1,0 +1,51 @@
+실행 컨텍스트란?
+- 자바스크립트 코드가 실행되는 환경에 대한 정보를 담고 있는 개념.
+- 코드가 실행될 때 변수, 함수 선언 등의 정보를 담은 객체로서 자바스크립트 엔진에 의해 생성되고 관리됨.
+
+실행 컨텍스트의 세 가지 구성
+1. Variable Object(변수 객체)
+  - 현재 컨텍스트에서 사용되는 지역 변수 및 매개변수 정보를 담고 있는 객체
+  - 함수 컨텍스트인 경우 함수 내에서 선언된 변수와 매개변수 정보를 담음
+
+2. Scope Chain(스코프 체인)
+  - 현재 실행 컨텍스트의 유효 범위(Scope)를 나타내는 것
+  - 현재 컨텍스트의 변수 객체와 상위 실행 컨텍스트의 변수 객체들을 연결한 체인 구조를 가짐
+
+3. this Value(this 값)
+  - this 키워드가 참조하는 객체를 나타냄
+  - 함수가 호출될 때 this 값이 할당되며, 함수가 어떻게 호출되었느냐에 따라 달라짐
+
+실행 컨텍스트의 생성 과정
+
+전역 컨텍스트 -> 함수 컨텍스트 -> Eval 함수 컨텍스트
+
+실행 컨텍스트는 스택 형태로 관리되며, 현재 실행 중인 컨텍스트가 종료되면 이전에 호출된 컨텍스트로 돌아감
+
+
+실행 컨텍스트에 들어있는 정보 -> variable environment, lexical environment, this binding
+
+VariableEnvironment : 현재 컨텍스트 내부의 식별자 정보(environmentRecord), 외부 환경 정보(outerEnvironmentReference)가 포함됨
+VariableEnvironment에 먼저 정보를 담고, 그대로 LexicalEnvironment에 복사해 사용한다.
+
+LexicalEnvironment : 초기에는 VariableEnvironment와 같지만 변경 사항이 실시간으로 적용된다.
+즉, VariableEnvironment의 초기 상태를 기억하고 있으며, LexicalEnvironment의 최신 상태를 저장함
+
+environmentRecord: 현재 컨텍스트와 관련된 식별자와 식별자에 바인딩된 값이 기록되는 공간.
+더불에 실행 컨텍스트 내부 전체를 처음부터 끝까지 확인하며 순서대로 수집한다.
+
+!! 호이스팅이란?
+- 자바스크립트 엔진이 실행 컨텍스트를 구성할 때 environmentRecord에 식별자의 정보를 수집한다. 이러한 과정을 통해
+엔진은 함수를 실행하기도 전에 해당 컨텍스트 내부의 변수명들을 이미 알고 있게 된다. 이렇기에 식별자들을 코드의 최상단으로 끌어올린 것 같은
+호이스팅이라는 개념이 생긴다. LexicalEnvironment의 environmentRecord의 경우 해당 컨텍스트 환경에 필요한 식별자와 식별자의 값이 기록되며,
+함수 실행시 실행 컨텍스트가 생성되므로 변수와 같은 식별자를 끌어올리는 것과 같다 라는 호이스팅이라는 개념이 생겼다.
+
+outerEnvironmentReference : 해당 함수가 선언된 위치의 LexicalEnvironment를 참조하며,
+변수에 접근을 한다면 해당 LexicalEnvironment 에서 발견된다면 사용, 찾지 못할 경우 다시 outerEnvironmentReference 참조하여 탐색하는 과정을 반복함. 
+이러한 과정을 스코프 체인 이라고 하며 outerEnvironmentReference는 스코프체인을 가능케하는 역할.
+
+this binding : 실행 컨텍스트 생성 시 할당해주는 것으로 상황에 따라 가끔은 전역객체, 가끔은 instance를 가리킴. 실행 컨텍스트에서의 this로 지정된 객체의 정보를 담고 있는 것이 this binding이다.
+  - 전역 컨텍스트에서의 this : 전역 컨텍스트에서 this는 전역 객체를 가리킴. 브라우저에서는 전역 객체가 window이다.
+  - 함수 호출에서의 this : 일반 함수 내에서 this는 전역 객체를 가리킴. strict mode에서는 this가 undefined이다.
+  - 메소드 호출에서의 this : 메소드 내에서 this는 메소드가 속한 객체를 가리킴.
+  - 생성자 함수에서의 this : 생성자 함수 내에서 this는 새로 생성되는 객체를 가리킴.
+  - call, apply, bind를 사용할 때의 this : call, apply, bind 메소드를 사용하여 명시적으로 this를 지정할 수 있다.

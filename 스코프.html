@@ -1,0 +1,57 @@
+스코프(Scope)란?
+- 변수와 함수의 접근성 및 유효범위를 나타내는 개념으로, 코드에서 특정 식별자(identifier)에 접근할 수 있는 범위를 결정함.
+스코프는 변수와 함수가 선언될 때 결정되며, 코드 실행 중에 동적으로 변경되지 않는다.
+
+스코프의 두 가지 종류
+
+1. 전역 스코프(Global Scope)
+  - 코드의 가장 바깥쪽, 함수 안이 아닌 곳에서 정의된 변수와 함수를 포함함.
+  - 전역 스코프에 선언된 변수 및 함수는 어디서든지 접근할 수 있음.
+
+<script>
+  var globalVariable = 'I am global'; // 전역 스코프에 선언된 변수
+  function globalFunction() {
+    console.log(globalVariable); // 전역 스코프의 변수에 접근
+  }
+  globalFunction();
+</script>
+
+2. 지역 스코프(Local Scope OR 함수 스코프)
+  - 함수 내에서 선언된 변수와 함수는 해당 함수 내부에서만 접근 가능한 지역 스코프를 가짐
+  - 함수가 중첩되어 있을 경우, 내부 함수는 외부 함수의 스코프에 접근할 수 있음.
+
+<script>
+function outerFunction() {
+  var outerVariable = 'I am outer'; // outerFunction의 지역 변수
+
+  function innerFunction() {
+    console.log(outerVariable); // outerFunction의 변수에 접근
+  }
+
+  innerFunction();
+}
+outerFunction();
+</script>
+
+변수의 스코프는 변수가 선언된 위치에 의해 결정되고, 함수의 스코프는 함수가 정의된 위치에 의해 결정됨.
+스코프 체인은 변수 또는 함수를 찾을 때 해당 변수 또는 함수가 선언된 위치에서부터 전역 스코프까지 차례로 검색하는 매커니즘
+
+스코프는 변수의 생명주기와 직결되며, 변수가 선언된 스코프를 벗어나면 해당 변수는 더 이상 접근할 수 없음
+이런 특징은 변수의 유효범위를 명확히 관리하고 충돌을 방지하는 데 도움이 됨
+
+<script>
+var globalVariable = 'I am global';
+
+function outerFunction() {
+  var outerVariable = 'I am outer';
+
+  function innerFunction() {
+    var innerVariable = 'I am inner';
+    console.log(innerVariable); // innerVariable을 찾을 때: innerFunction -> outerFunction -> global scope
+  }
+
+  innerFunction();
+}
+
+outerFunction();
+</script>
